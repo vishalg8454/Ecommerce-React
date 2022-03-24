@@ -1,0 +1,10 @@
+.featured{
+    display: flex;
+    gap: 1rem;
+    margin: 1rem;
+}
+@media (max-width:500px) {
+    .featured{
+        flex-wrap: wrap;
+    }
+}
