@@ -1,6 +1,6 @@
 import { Carousel } from "../../components";
 import { Banner } from "../../components";
-import { FeaturedCard } from "../../components";
+import { FeaturedCard,Footer } from "../../components";
 import haruki from "../../assets/images/haruki.jpeg";
 import fiveac from "../../assets/images/fiveac.jpeg";
 import "./homepage.css";
@@ -32,6 +32,7 @@ export const Homepage = () => {
           <FeaturedCard title={title} description={description} image={image} key={id}/>
         ))}
       </div>
+      <Footer />
     </>
   );
 };
