@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import comic from "../../assets/images/comic.png";
+import { Link } from "react-router-dom";
 
 import "./carousel.css";
 import axios from "axios";
@@ -23,9 +24,10 @@ export const Carousel = () => {
   return (
     <div className="carousel">
       <div className="carousel-container">
-        {categories.map(({id,categoryName,image}) => (
-        //   <img className="carousel-img" src="../../assets/images/comic.png" key={id}/>
-          <img className="carousel-img" src={image} key={id}/>
+        {categories.map(({ id, categoryName, image }) => (
+          <Link to="/">
+            <img className="carousel-img" src={image} key={id} />
+          </Link>
         ))}
       </div>
     </div>
