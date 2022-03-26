@@ -1,5 +1,11 @@
-.card-container{
+.product-card-container{
     margin: 1rem;
+    width: 22rem;
+    /* opacity: 0.5; */
+}
+.product-card-img{
+    width: 20rem;
+    height: 20rem;
 }
 .card-price{
     font-weight: bold;

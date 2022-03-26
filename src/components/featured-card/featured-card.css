@@ -1,7 +1,8 @@
-.card-container{
-    width:100%;
+.featured-card-container{
+    width:98%;
 }
-.card-image{
+
+.featured-card-img{
     aspect-ratio: 1/1;
     max-height: 10rem;
 }
