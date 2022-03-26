@@ -1,8 +1,9 @@
 import "./product-page.css";
+import {Filter} from "../../components"
 
 const ProductPage = () => {
   return (
-    <h1>Product Page</h1>      
+      <Filter />
   );
 };
 export { ProductPage };
