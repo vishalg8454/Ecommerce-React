@@ -1,8 +1,14 @@
 import "./App.css";
+import {Navbar,Footer} from "./components"
+import {Outlet} from "react-router-dom";
 
 function App() {
   return (
-    <h1>Ecommerce App</h1>
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
   );
 }
 

@@ -1,0 +1,33 @@
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: 8% 84% 8%;
+  grid-template-rows: auto auto auto;
+}
+.carousel{
+    grid-column: 2/3;
+}
+.banner{
+    grid-column: 2/3;
+}
+.featured{
+    grid-column: 2/3;
+}
+.featured {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem;
+}
+@media (max-width: 500px) {
+  .featured {
+    flex-wrap: wrap;
+  }
+  .carousel{
+    grid-column: 1/4;
+  }
+  .banner{
+    grid-column: 1/4;
+  }
+  .featured{
+    grid-column: 1/4;
+  }
+}

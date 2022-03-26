@@ -1,0 +1,22 @@
+@import "/src/style.css";
+
+.nav-list{
+    order: 100;
+}
+@media (max-width:500px) {
+    .nav-container{
+        flex-wrap: wrap;
+    }
+    .nav-search-container{
+        flex-basis: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .navbar{
+        height: auto
+    }
+    .nav-list{
+        margin-left: auto;
+        order: 0;
+    }
+}
