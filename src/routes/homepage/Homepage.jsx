@@ -1,9 +1,8 @@
-import { Carousel } from "../../components";
-import { Banner } from "../../components";
-import { FeaturedCard, Footer } from "../../components";
+import { FeaturedCard, Carousel, Banner } from "../../components";
 import haruki from "../../assets/images/haruki.jpeg";
 import fiveac from "../../assets/images/fiveac.jpeg";
 import "./homepage.css";
+import { useEffect } from "react";
 
 const featuredList = [
   {
@@ -23,6 +22,11 @@ const featuredList = [
 ];
 
 export const Homepage = () => {
+  
+  useEffect(() => {
+    document.title = "BookStock";
+  });
+
   return (
     <div className="grid-wrapper">
       <Carousel className="carousel" />
