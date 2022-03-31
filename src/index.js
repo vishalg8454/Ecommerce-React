@@ -6,7 +6,7 @@ import { makeServer } from "./server";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mockman from "mockman-js";
 import "mockman-js/dist/style.css";
-import { Homepage, ProductPage } from "./routes";
+import { Homepage, ProductPage, LoginPage } from "./routes";
 import { ProductProvider } from "./context/product-context";
 
 // Call make Server
@@ -26,6 +26,7 @@ ReactDOM.render(
               </ProductProvider>
             }
           />
+          <Route path="login" element={<LoginPage />} />
         </Route>
         <Route path="mock" element={<Mockman />} />
       </Routes>
