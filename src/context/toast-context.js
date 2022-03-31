@@ -6,7 +6,7 @@ const useToast = () => useContext(ToastContext);
 
 const ToastProvider = ({ children }) => {
   const [show, setShow] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("hey");
   const [type, setType] = useState("");
 
   function showToast({ message, type }) {
@@ -19,7 +19,7 @@ const ToastProvider = ({ children }) => {
   }
 
   return (
-    <ToastContext.Provider value={{ show, type, message, showToast }}>
+    <ToastContext.Provider value={{ show, type, message,showToast }}>
       {children}
     </ToastContext.Provider>
   );

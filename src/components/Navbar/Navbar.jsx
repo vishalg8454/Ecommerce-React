@@ -11,7 +11,7 @@ export const Navbar = () => {
         <ul className="nav-list">
           <li className="nav-list-items desktop-cta">
             <Link to="/login">
-            <button class="btn btn-primary-outline  nav-cta">Login</button>
+            <button className="btn btn-primary-outline  nav-cta">Login</button>
             </Link>
           </li>
           <li className="nav-list-items">
