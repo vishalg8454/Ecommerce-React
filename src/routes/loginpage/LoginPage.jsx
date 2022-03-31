@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./loginpage.css";
 import { useUser } from "../../context/user-context";
 
@@ -7,6 +7,10 @@ export const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const { loginUser } = useUser();
+
+  useEffect(() => {
+    document.title = "BookStock | Login";
+  }, []);
 
   function setGuestCredential(event) {
     event.preventDefault();
