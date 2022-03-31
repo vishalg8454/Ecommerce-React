@@ -2,6 +2,13 @@
 
 .nav-list{
     order: 100;
+    align-items: center;
+}
+.mobile-cta{
+    display: none;
+}
+.desktop-cta{
+    display: block;
 }
 @media (max-width:500px) {
     .nav-container{
@@ -18,5 +25,11 @@
     .nav-list{
         margin-left: auto;
         order: 0;
+    }
+    .desktop-cta{
+        display: none;
+    }
+    .mobile-cta{
+        display: block;
     }
 }
