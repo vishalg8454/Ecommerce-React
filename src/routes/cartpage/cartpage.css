@@ -1,0 +1,8 @@
+.cartpage-container{
+    height: calc(100vh - 102.5px - 64px);
+}
+@media (max-width:500px) {
+    .cartpage-container{
+        height: calc(100vh - 131.5px - 102.5px);
+    }
+}

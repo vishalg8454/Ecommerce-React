@@ -8,7 +8,7 @@ const UserContext = createContext(null);
 const useUser = () => useContext(UserContext);
 
 const UserProvider = ({ children }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { showToast, message } = useToast();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
