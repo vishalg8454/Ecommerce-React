@@ -25,7 +25,7 @@ export const Carousel = () => {
     <div className="carousel">
       <div className="carousel-container">
         {categories.map(({ id, categoryName, image }) => (
-          <Link to="/shop">
+          <Link key={id} to="/shop">
             <img className="carousel-img" src={image} key={id} />
           </Link>
         ))}

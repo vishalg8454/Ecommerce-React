@@ -10,6 +10,7 @@ import { Homepage, ProductPage, LoginPage, CartPage } from "./routes";
 import { ProductProvider } from "./context/product-context";
 import { UserProvider } from "./context/user-context";
 import { ToastProvider } from "./context/toast-context";
+import { CartProvider } from "./context/cart-context";
 
 // Call make Server
 makeServer();
@@ -19,22 +20,19 @@ ReactDOM.render(
     <BrowserRouter>
       <ToastProvider>
         <UserProvider>
-          <Routes>
-            <Route path="/" element={<App />}>
-              <Route index element={<Homepage />} />
-              <Route
-                path="shop"
-                element={
-                  <ProductProvider>
-                    <ProductPage />
-                  </ProductProvider>
-                }
-              />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="cart" element={<CartPage />} />
-            </Route>
-            <Route path="mock" element={<Mockman />} />
-          </Routes>
+          <ProductProvider>
+            <CartProvider>
+              <Routes>
+                <Route path="/" element={<App />}>
+                  <Route index element={<Homepage />} />
+                  <Route path="shop" element={<ProductPage />} />
+                  <Route path="login" element={<LoginPage />} />
+                  <Route path="cart" element={<CartPage />} />
+                </Route>
+                <Route path="mock" element={<Mockman />} />
+              </Routes>
+            </CartProvider>
+          </ProductProvider>
         </UserProvider>
       </ToastProvider>
     </BrowserRouter>

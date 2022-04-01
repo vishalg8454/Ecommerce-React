@@ -3,8 +3,8 @@ import "./loginpage.css";
 import { useUser } from "../../context/user-context";
 
 export const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("adarshbalika@gmail.com");
+  const [password, setPassword] = useState("adarshbalika");
 
   const { loginUser } = useUser();
 

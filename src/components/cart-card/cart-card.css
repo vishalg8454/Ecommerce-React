@@ -1,0 +1,27 @@
+.cart-card-image{
+    width: 12rem;
+    height: 12rem;
+}
+.cart-card-btn-container{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.increment-btn{
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+}
+.cart-card-price{
+    font-size: larger;
+    font-weight: bolder;
+    margin-top: 1rem;
+}
+@media (max-width:500px) {
+    .cart-card-image{
+        height: 18rem;
+    }
+    .cart-card-btn-container{
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+}

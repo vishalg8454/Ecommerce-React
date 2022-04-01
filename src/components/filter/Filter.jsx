@@ -1,7 +1,6 @@
 import "./filter.css";
 
 const Filter = ({ state, dispatch }) => {
-  console.log(state);
   return (
     <aside className="filter">
       <p className="filter-label">Filters</p>
