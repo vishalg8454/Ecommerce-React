@@ -9,6 +9,11 @@ export const Navbar = () => {
           BOOKSTOCK
         </Link>
         <ul className="nav-list">
+          <li className="nav-list-items desktop-cta">
+            <Link to="/login">
+            <button className="btn btn-primary-outline  nav-cta">Login</button>
+            </Link>
+          </li>
           <li className="nav-list-items">
             <div>
               <Link to="/">
@@ -26,9 +31,9 @@ export const Navbar = () => {
               <div className="badge-text">3</div>
             </div>
           </li>
-          <li className="nav-list-items profile">
+          <li className="nav-list-items profile mobile-cta">
             <div>
-              <Link to="/">
+              <Link to="/login">
                 <i className="fas fa-user nav-icon"></i>
               </Link>
             </div>

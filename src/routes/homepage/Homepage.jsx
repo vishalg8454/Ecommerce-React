@@ -25,7 +25,7 @@ export const Homepage = () => {
   
   useEffect(() => {
     document.title = "BookStock";
-  });
+  },[]);
 
   return (
     <div className="grid-wrapper">
