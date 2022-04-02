@@ -4,7 +4,7 @@ import { useCart } from "../../context/cart-context";
 import axios from "axios";
 
 const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
-  console.log(qty);
+  
   const { encodedToken } = useUser();
   const { dispatch } = useCart();
 
