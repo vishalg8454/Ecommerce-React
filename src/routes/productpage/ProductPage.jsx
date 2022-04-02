@@ -26,13 +26,10 @@ const ProductPage = () => {
   });
 
   const includedProducts = includeProducts(productList, state);
-  console.log(includedProducts);
 
   const filteredProducts = filterProducts(includedProducts, state);
-  console.log("filter", filteredProducts);
 
   const sortedProducts = sortProducts(filteredProducts, state);
-  console.log("sorted", sortedProducts);
 
   const finalProducts = sortedProducts;
 
@@ -48,6 +45,7 @@ const ProductPage = () => {
               title={product.title}
               image={product.image}
               includeStock={product.includeStock}
+              _id={product._id}
             />
           );
         })}
