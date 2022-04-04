@@ -6,9 +6,14 @@ const useWishlist = () => useContext(WishlistContext);
 
 const WishlistProvider = ({ children }) => {
   const [wishlistList, setWishlistList] = useState([]);
-  <WishlistContext.Provider value={{ wishlistList }}>
-    {children}
-  </WishlistContext.Provider>;
+
+  return (
+    <WishlistContext.Provider
+      value={{ wishlistList, setWishlistList }}
+    >
+      {children}
+    </WishlistContext.Provider>
+  );
 };
 
 export { WishlistProvider, useWishlist };
