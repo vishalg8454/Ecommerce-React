@@ -33,7 +33,7 @@ export const Navbar = () => {
           </li>
           <li className="nav-list-items">
             <div>
-              <Link to="/">
+              <Link to="/wishlist">
                 {" "}
                 <i className="badge-icon fas fa-heart nav-icon"></i>
               </Link>
