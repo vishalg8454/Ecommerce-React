@@ -1,6 +1,7 @@
 import "../Navbar/navbar.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/cart-context";
+import { useWishlist } from "../../context/wishlist-context";
 import { useUser } from "../../context/user-context";
 
 export const Navbar = () => {
@@ -8,6 +9,7 @@ export const Navbar = () => {
     state: { cartList },
   } = useCart();
   const { encodedToken } = useUser();
+  const { wishlistList } = useWishlist();
 
   return (
     <nav className="navbar">
@@ -19,10 +21,10 @@ export const Navbar = () => {
           <li className="nav-list-items desktop-cta">
             {encodedToken ? (
               <Link to="/">
-              <button className="btn btn-primary-outline  nav-cta">
-                Logout
-              </button>
-            </Link>
+                <button className="btn btn-primary-outline  nav-cta">
+                  Logout
+                </button>
+              </Link>
             ) : (
               <Link to="/login">
                 <button className="btn btn-primary-outline  nav-cta">
@@ -33,11 +35,13 @@ export const Navbar = () => {
           </li>
           <li className="nav-list-items">
             <div>
-              <Link to="/">
+              <Link to="/wishlist">
                 {" "}
                 <i className="badge-icon fas fa-heart nav-icon"></i>
               </Link>
-              <div className="badge-text">9</div>
+              {wishlistList.length > 0 && (
+                <div className="badge-text">{wishlistList.length}</div>
+              )}
             </div>
           </li>
           <li className="nav-list-items">

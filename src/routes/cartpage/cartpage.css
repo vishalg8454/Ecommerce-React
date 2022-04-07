@@ -1,4 +1,5 @@
 .cartpage-container{
+    min-height: calc(100vh - 64px - 102.5px);
     display: grid;
     grid-template-columns: 6fr 4fr;
     grid-template-rows: auto 1fr;

@@ -1,0 +1,12 @@
+.wishlist-page{
+    min-height: calc(100vh - 64px - 102.5px);
+}
+.wishlist-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.wishlist-count{
+    padding: 1rem;
+    text-align: center;
+}

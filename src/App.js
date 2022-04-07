@@ -1,11 +1,10 @@
 import "./App.css";
-import {Navbar,Footer,Toast} from "./components"
-import {Outlet} from "react-router-dom";
-import {useToast} from "./context/toast-context";
+import { Navbar, Footer, Toast } from "./components";
+import { Outlet } from "react-router-dom";
+import { useToast } from "./context/toast-context";
 
 function App() {
-
-  const {show} = useToast();
+  const { show } = useToast();
   return (
     <>
       {show && <Toast />}
