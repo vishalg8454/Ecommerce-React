@@ -7,34 +7,6 @@ export const cartReducer = (state, action) => {
       return { ...state, cartList: action.payload };
     }
 
-
-
-    // case "INCREMENT_ITEM":{
-    //   console.log("inside increment_item");
-    //   (async () => {
-    //     console.log("inside async");
-    //     try {
-    //       console.log("try block")
-    //       const cartData = await axios.post(
-    //         `/api/user/cart/${action.payload._id}`,
-    //         {
-    //           action: { type: "increment" },
-    //         },
-    //         {
-    //           headers: {
-    //             authorization: action.payload.encodedToken,
-    //           },
-    //         }
-    //       );
-    //       action.payload.dispatch({ type: "SET_CART", payload: cartData.data.cart });
-    //     } catch (error) {
-    //     }
-    //   })();
-    //   return {...state};
-    // }
-
-
-
     default:
       return state;
   }

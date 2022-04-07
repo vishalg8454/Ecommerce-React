@@ -12,10 +12,6 @@ const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
 
 
   const incrementItem = async () => {
-    // dispatch({
-    //   type: "INCREMENT_ITEM",
-    //   payload: { dispatch, _id, encodedToken },
-    // });
     try {
       const cartData = await axios.post(
         `/api/user/cart/${_id}`,
