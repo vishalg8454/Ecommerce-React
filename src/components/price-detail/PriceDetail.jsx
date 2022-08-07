@@ -3,11 +3,13 @@ import "./price-detail.css";
 // import { useCart } from "../../context/cart-context";
 // import {useUser} from "../../context/user-context";
 import { useToast, useCart, useUser } from "../../context";
+import {useNavigate} from "react-router-dom";
 
 const PriceDetail = ({ totalPrice, discount, items }) => {
   const { showToast } = useToast();
   const { resetCart } = useCart();
   const { addOrder } = useUser();
+  let navigate = useNavigate();
   const loadScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -46,6 +48,7 @@ const PriceDetail = ({ totalPrice, discount, items }) => {
         });
         resetCart();
         addOrder(response.razorpay_payment_id, amount);
+        navigate("/profile/orders");
       },
     };
     const paymentObject = new window.Razorpay(options);

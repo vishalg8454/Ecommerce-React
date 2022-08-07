@@ -10,6 +10,7 @@ const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
   const { dispatch } = useCart();
   const { wishlistList, setWishlistList } = useWishlist();
   const [loading, setLoading] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
   const incrementItem = async () => {
     setLoading(true);
@@ -66,6 +67,7 @@ const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
 
   const addToWishList = async () => {
     try {
+      setFavoriteLoading(true);
       const wishlistData = await axios.post(
         "/api/user/wishlist",
         {
@@ -80,11 +82,14 @@ const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
       setWishlistList(wishlistData.data.wishlist);
     } catch (error) {
       showToast({ message: "Sign in to add items wishlist", type: "failure" });
+    } finally {
+      setFavoriteLoading(false);
     }
   };
 
   const removeFromWishList = async () => {
     try {
+      setFavoriteLoading(true);
       const wishlistData = await axios.delete(`/api/user/wishlist/${_id}`, {
         headers: {
           authorization: encodedToken,
@@ -96,6 +101,8 @@ const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
         message: "Unable to remove items from wishlist",
         type: "failure",
       });
+    } finally {
+      setFavoriteLoading(false);
     }
   };
 
@@ -113,25 +120,41 @@ const CartCard = ({ image, title, price, includeStock, _id, qty }) => {
             Save For Later
           </button>
           {wishlistList.some((item) => item._id === _id) ? (
-            <i
-              style={{ color: "red", fontSize: "x-large" }}
+            <button
               onClick={() => removeFromWishList(_id)}
-              className="card-btn-icon fas fa-heart"
-            ></i>
+              disabled={favoriteLoading}
+            >
+              <i
+                style={{ color: "red", fontSize: "x-large" }}
+                className="card-btn-icon fas fa-heart"
+              ></i>
+            </button>
           ) : (
-            <i
-              style={{ fontSize: "x-large" }}
+            <button
               onClick={() => addToWishList(_id)}
-              className="card-btn-icon far fa-heart"
-            ></i>
+              disabled={favoriteLoading}
+            >
+              <i
+                style={{ fontSize: "x-large" }}
+                className="card-btn-icon far fa-heart"
+              ></i>
+            </button>
           )}
         </div>
         <div>
-          <button className="increment-btn" disabled={loading || qty == 1} onClick={decrementItem}>
+          <button
+            className="increment-btn"
+            disabled={loading || qty == 1}
+            onClick={decrementItem}
+          >
             -
           </button>
           <span>{` ${qty} `}</span>
-          <button className="increment-btn" disabled={loading} onClick={incrementItem}>
+          <button
+            className="increment-btn"
+            disabled={loading}
+            onClick={incrementItem}
+          >
             +
           </button>
         </div>

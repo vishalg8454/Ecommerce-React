@@ -6,6 +6,7 @@ import "./product-card.css";
 import { useUser, useCart, useToast, useWishlist } from "../../context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const getDiscount = (price, originalPrice) => {
   return Math.round(((price - originalPrice) / originalPrice) * 100);
@@ -19,6 +20,8 @@ const ProductCard = ({
   originalPrice,
   rating,
 }) => {
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [cartLoading, setCartLoading] = useState(false);
   const { encodedToken } = useUser();
   const { showToast } = useToast();
   const { wishlistList, setWishlistList } = useWishlist();
@@ -31,6 +34,7 @@ const ProductCard = ({
 
   const addToCart = async () => {
     try {
+      setCartLoading(true);
       const cartData = await axios.post(
         "/api/user/cart",
         {
@@ -45,11 +49,14 @@ const ProductCard = ({
       dispatch({ type: "SET_CART", payload: cartData.data.cart });
     } catch (error) {
       showToast({ message: "Sign in to add items to cart", type: "failure" });
+    } finally {
+      setCartLoading(false);
     }
   };
 
   const addToWishList = async () => {
     try {
+      setFavoriteLoading(true);
       const wishlistData = await axios.post(
         "/api/user/wishlist",
         {
@@ -64,11 +71,14 @@ const ProductCard = ({
       setWishlistList(wishlistData.data.wishlist);
     } catch (error) {
       showToast({ message: "Sign in to add items wishlist", type: "failure" });
+    } finally {
+      setFavoriteLoading(false);
     }
   };
 
   const removeFromWishList = async () => {
     try {
+      setFavoriteLoading(true);
       const wishlistData = await axios.delete(`/api/user/wishlist/${_id}`, {
         headers: {
           authorization: encodedToken,
@@ -80,6 +90,8 @@ const ProductCard = ({
         message: "Unable to remove items from wishlist",
         type: "failure",
       });
+    } finally {
+      setFavoriteLoading(false);
     }
   };
 
@@ -112,7 +124,11 @@ const ProductCard = ({
             Go to Cart
           </button>
         ) : (
-          <button className="card-btn card-btn-primary" onClick={addToCart}>
+          <button
+            className="card-btn card-btn-primary"
+            onClick={addToCart}
+            disabled={cartLoading}
+          >
             Add to Cart
           </button>
         )}
@@ -120,17 +136,23 @@ const ProductCard = ({
 
         <div className="ratingContainer">{ratingStar}</div>
         {wishlistList.some((item) => item._id === _id) ? (
-          <i
-            style={{ color: "red", fontSize: "x-large" }}
+          <button
             onClick={() => removeFromWishList(_id)}
-            className="card-btn-icon fas fa-heart"
-          ></i>
+            disabled={favoriteLoading}
+          >
+            <i
+              style={{ color: "red", fontSize: "x-large" }}
+              className="card-btn-icon fas fa-heart"
+              disab
+            ></i>
+          </button>
         ) : (
-          <i
-            style={{ fontSize: "x-large" }}
-            onClick={() => addToWishList(_id)}
-            className="card-btn-icon far fa-heart"
-          ></i>
+          <button onClick={() => addToWishList(_id)} disabled={favoriteLoading}>
+            <i
+              style={{ fontSize: "x-large" }}
+              className="card-btn-icon far fa-heart"
+            ></i>
+          </button>
         )}
       </div>
       <div className="card-badge">{getDiscount(price, originalPrice)}%</div>
