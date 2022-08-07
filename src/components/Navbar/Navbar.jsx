@@ -37,13 +37,13 @@ export const Navbar = () => {
         <ul className="nav-list">
           <li className="nav-list-items desktop-cta">
             {encodedToken ? (
-              <Link to="/">
+              <Link to="/profile">
                 <button className="btn btn-primary-outline  nav-cta">
-                  Logout
+                <i class="fas fa-user"></i>
                 </button>
               </Link>
             ) : (
-              <Link to="/login">
+              <Link to="/profile">
                 <button className="btn btn-primary-outline  nav-cta">
                   Login
                 </button>

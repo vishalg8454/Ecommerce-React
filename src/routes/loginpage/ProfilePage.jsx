@@ -39,7 +39,7 @@ export const ProfilePage = () => {
 
   if (encodedToken) {
     return (
-      <div>
+      <div className="profile-page">
         <div className="nav-container navlink-container">
           <NavLink
             style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
@@ -57,6 +57,7 @@ export const ProfilePage = () => {
           </NavLink>
         </div>
         <Outlet />
+        <div className="logout-container">
         <button
           className="logout-btn"
           onClick={() => {
@@ -66,6 +67,7 @@ export const ProfilePage = () => {
         >
           Logout
         </button>
+        </div>
       </div>
     );
   }

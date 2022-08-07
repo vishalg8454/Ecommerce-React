@@ -14,7 +14,7 @@ export const FeaturedCard = (props) => {
         <p className="card-description">{props.description}
         </p>
         <div className="card-btn-container">
-          <button className="card-btn card-btn-primary" onClick={navigateToShop}></button>
+          <button className="card-btn card-btn-primary" onClick={navigateToShop}>Explore</button>
         </div>
       </div>
     </div>
