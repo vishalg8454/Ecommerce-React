@@ -8,12 +8,13 @@ const Filter = ({ state, dispatch }) => {
       <ul className="category-list">
         <li className="category-list-item">
           <input
+            id="includeOutOfStock"
             type="checkbox"
             name="category"
             checked={state.includeOutOfStock}
             onChange={() => dispatch({ type: "INCLUDE_OUT_OF_STOCK" })}
           />
-          <label htmlFor="fiction"> Include out of stock</label>
+          <label htmlFor="includeOutOfStock"> Include out of stock</label>
           <br />
         </li>
       </ul>
@@ -22,6 +23,7 @@ const Filter = ({ state, dispatch }) => {
       <ul className="category-list">
         <li className="category-list-item">
           <input
+            id="fiction"
             type="checkbox"
             name="category"
             checked={state.fiction}
@@ -32,6 +34,7 @@ const Filter = ({ state, dispatch }) => {
         </li>
         <li className="category-list-item">
           <input
+            id="scifi"
             type="checkbox"
             name="category"
             checked={state.scifi}
@@ -42,6 +45,7 @@ const Filter = ({ state, dispatch }) => {
         </li>
         <li className="category-list-item">
           <input
+            id="novel"
             type="checkbox"
             name="category"
             checked={state.novel}
@@ -52,16 +56,18 @@ const Filter = ({ state, dispatch }) => {
         </li>
         <li className="category-list-item">
           <input
+            id="selfHelp"
             type="checkbox"
             name="category"
             checked={state.selfhelp}
             onChange={() => dispatch({ type: "SELECT_SELFHELP" })}
           />
-          <label htmlFor="selfhelp"> Self-Help</label>
+          <label htmlFor="selfHelp"> Self-Help</label>
           <br />
         </li>
         <li className="category-list-item">
           <input
+            id="biography"
             type="checkbox"
             name="category"
             checked={state.biography}
@@ -72,6 +78,7 @@ const Filter = ({ state, dispatch }) => {
         </li>
         <li className="category-list-item">
           <input
+            id="comic"
             type="checkbox"
             name="category"
             checked={state.comic}
@@ -84,19 +91,47 @@ const Filter = ({ state, dispatch }) => {
       <p className="filter-label">Rating</p>
       <ul className="category-list">
         <li className="category-list-item">
-          <input type="radio" id="4star" name="rating" value="4" />
+          <input
+            type="radio"
+            id="4star"
+            name="rating"
+            value="4"
+            checked={state.rating === 4}
+            onChange={() => dispatch({ type: "SET_RATING", payload: 4 })}
+          />
           <label htmlFor="4star">{" 4 Stars & above"}</label>
         </li>
         <li className="category-list-item">
-          <input type="radio" id="4star" name="rating" value="3" />
+          <input
+            type="radio"
+            id="3star"
+            name="rating"
+            value="3"
+            checked={state.rating === 3}
+            onChange={() => dispatch({ type: "SET_RATING", payload: 3 })}
+          />
           <label htmlFor="3star">{" 3 Stars & above"}</label>
         </li>
         <li className="category-list-item">
-          <input type="radio" id="4star" name="rating" value="2" />
+          <input
+            type="radio"
+            id="2star"
+            name="rating"
+            value="2"
+            checked={state.rating === 2}
+            onChange={() => dispatch({ type: "SET_RATING", payload: 2 })}
+          />
           <label htmlFor="2star">{" 2 Stars & above"}</label>
         </li>
         <li className="category-list-item">
-          <input type="radio" id="4star" name="rating" value="1" />
+          <input
+            type="radio"
+            id="1star"
+            name="rating"
+            value="1"
+            checked={state.rating === 1}
+            onChange={() => dispatch({ type: "SET_RATING", payload: 1 })}
+          />
           <label htmlFor="1star">{" 1 Stars & above"}</label>
         </li>
       </ul>

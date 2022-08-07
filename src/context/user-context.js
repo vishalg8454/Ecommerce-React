@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useToast } from "./toast-context";
 
 const UserContext = createContext(null);
@@ -13,6 +13,7 @@ const UserProvider = ({ children }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [encodedToken, setEncodedToken] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   async function loginUser({ email, password }) {
     try {
@@ -34,9 +35,58 @@ const UserProvider = ({ children }) => {
     }
   }
 
+  async function signupUser({ firstName, lastName, email, password }) {
+    try {
+      const userData = await axios.post("/api/auth/signup", {
+        email: email,
+        password: password,
+        firstName:firstName,
+        lastName:lastName
+      });
+      setEncodedToken(userData.data.encodedToken);
+      setFirstName((p) => userData.data.createdUser.firstName);
+      setLastName((p) => userData.data.createdUser.lastName);
+      showToast({
+        message: `Welcome ${userData.data.createdUser.firstName} ${userData.data.createdUser.lastName}`,
+        type: "success",
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      showToast({ message: "Unable to sign up", type: "error" });
+    }
+  }
+
+  const logout = () => {
+    showToast({
+      message: `Logged out successfully.`,
+      type: "success",
+    });
+    setFirstName("");
+    setLastName("");
+    setEncodedToken(null);
+    localStorage.removeItem("address");
+    setOrders([]);
+  };
+
+  const addOrder = (orderId, totalAmount) => {
+    setOrders((prev) => [
+      ...prev,
+      { orderId: orderId, totalAmount: totalAmount },
+    ]);
+  };
   return (
     <UserContext.Provider
-      value={{ encodedToken, firstName, lastName, loginUser }}
+      value={{
+        encodedToken,
+        firstName,
+        lastName,
+        loginUser,
+        signupUser,
+        logout,
+        orders,
+        addOrder,
+      }}
     >
       {children}
     </UserContext.Provider>

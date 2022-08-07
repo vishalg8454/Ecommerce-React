@@ -1,8 +1,10 @@
 import "./cartpage.css";
-import { useCart } from "../../context/cart-context";
-import { useProduct } from "../../context/product-context";
-import { useUser } from "../../context/user-context";
+// import { useCart } from "../../context/cart-context";
+// import { useProduct } from "../../context/product-context";
+// import { useUser } from "../../context/user-context";
 import { CartCard, PriceDetail } from "../../components";
+import { useCart, useProduct, useUser } from "../../context";
+import empty from "../../assets/images/empty.png";
 
 const CartPage = () => {
   const {
@@ -29,12 +31,21 @@ const CartPage = () => {
   return (
     <div className="cartpage-container">
       {encodedToken ? (
-        <h4 className="cartpage-count">Cart ({`${cartItems.length}`}items)</h4>
+        cartItems.length > 0 ? (
+          <h4 className="cartpage-count">
+            Cart ({`${cartItems.length}`}items)
+          </h4>
+        ) : (
+          <h4 className="cartpage-count">Cart is Empty</h4>
+        )
       ) : (
         <h4 className="cartpage-count">Sign in to view your cart items.</h4>
       )}
 
       <main className="cartpage-main">
+        {encodedToken && cartItems.length === 0 && (
+          <img src={empty} className="no-product-img" />
+        )}
         {cartItems.map((product) => {
           return (
             <CartCard
@@ -49,12 +60,14 @@ const CartPage = () => {
           );
         })}
       </main>
-      <PriceDetail
-        className="cartpage-aside"
-        totalPrice={totalPrice}
-        discount={discount}
-        items={cartItems.length}
-      />
+      {cartItems.length > 0 && (
+        <PriceDetail
+          className="cartpage-aside"
+          totalPrice={totalPrice}
+          discount={discount}
+          items={cartItems.length}
+        />
+      )}
     </div>
   );
 };

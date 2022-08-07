@@ -1,4 +1,4 @@
-export const filterProducts = (
+export const getFilteredProductsByCategory = (
   productList,
   { fiction, scifi, novel, selfhelp, biography, comic }
 ) => {
