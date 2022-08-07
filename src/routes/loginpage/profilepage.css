@@ -30,3 +30,26 @@
     margin: 1rem 0rem 0rem 0rem;
     border-radius: 0rem;
 }
+.btn-secondary-solid{
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+}
+.link-container{
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem;
+}
+.logout-btn{
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 2px solid var(--color-dark-red);
+    background-color: var(--color-light-red);
+    border-radius: 4px;
+    cursor: pointer;
+}
+.input:disabled{
+    border: 2px solid var(--color-dark-gray);
+}
+.navlink:hover{
+    opacity: 0.9;
+}

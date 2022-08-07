@@ -1,16 +1,29 @@
 import "./product-card.css";
-import { useUser } from "../../context/user-context";
-import { useCart } from "../../context/cart-context";
-import { useToast } from "../../context/toast-context";
-import { useWishlist } from "../../context/wishlist-context";
+// import { useUser } from "../../context/user-context";
+// import { useCart } from "../../context/cart-context";
+// import { useToast } from "../../context/toast-context";
+// import { useWishlist } from "../../context/wishlist-context";
+import { useUser, useCart, useToast, useWishlist } from "../../context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ image, title, price, includeStock, _id }) => {
+const getDiscount = (price, originalPrice) => {
+  return Math.round(((price - originalPrice) / originalPrice) * 100);
+};
+const ProductCard = ({
+  image,
+  title,
+  price,
+  includeStock,
+  _id,
+  originalPrice,
+  rating,
+}) => {
   const { encodedToken } = useUser();
   const { showToast } = useToast();
   const { wishlistList, setWishlistList } = useWishlist();
   let navigate = useNavigate();
+
   const {
     state: { cartList },
     dispatch,
@@ -56,24 +69,28 @@ const ProductCard = ({ image, title, price, includeStock, _id }) => {
 
   const removeFromWishList = async () => {
     try {
-      const wishlistData = await axios.delete(
-        `/api/user/wishlist/${_id}`,
-        {
-          headers: {
-            authorization: encodedToken,
-          },
-        }
-      );
+      const wishlistData = await axios.delete(`/api/user/wishlist/${_id}`, {
+        headers: {
+          authorization: encodedToken,
+        },
+      });
       setWishlistList(wishlistData.data.wishlist);
     } catch (error) {
-      showToast({ message: "Unable to remove items from wishlist", type: "failure" });
+      showToast({
+        message: "Unable to remove items from wishlist",
+        type: "failure",
+      });
     }
   };
 
   const goToCart = () => {
     navigate("/cart");
   };
-
+  let ratingStar = [];
+  for (let i = 1; i <= rating; i++)
+    ratingStar.push(
+      <i className="rating-icon checked fas fa-star" key={i}></i>
+    );
   return (
     <div
       className="card-container product-card-container"
@@ -85,7 +102,10 @@ const ProductCard = ({ image, title, price, includeStock, _id }) => {
         alt="Item Image"
       />
       <h6 className="card-title">{title}</h6>
-      <p className="card-description card-price">₹ {price}</p>
+      <div className="card-price-container">
+        <p className="card-description card-price">₹ {price}</p>
+        <p className="card-description card-price-striked">₹ {originalPrice}</p>
+      </div>
       <div className="card-btn-container">
         {cartList.some((item) => item._id === _id) ? (
           <button className="card-btn card-btn-primary" onClick={goToCart}>
@@ -96,7 +116,9 @@ const ProductCard = ({ image, title, price, includeStock, _id }) => {
             Add to Cart
           </button>
         )}
-        <button className="card-btn card-btn-secondary">Save For Later</button>
+        {/* <button className="card-btn card-btn-secondary">Save For Later</button> */}
+
+        <div className="ratingContainer">{ratingStar}</div>
         {wishlistList.some((item) => item._id === _id) ? (
           <i
             style={{ color: "red", fontSize: "x-large" }}
@@ -111,7 +133,7 @@ const ProductCard = ({ image, title, price, includeStock, _id }) => {
           ></i>
         )}
       </div>
-      <div className="card-badge">-22%</div>
+      <div className="card-badge">{getDiscount(price, originalPrice)}%</div>
     </div>
   );
 };

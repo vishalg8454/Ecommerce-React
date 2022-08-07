@@ -3,13 +3,30 @@ import { Link } from "react-router-dom";
 import { useCart } from "../../context/cart-context";
 import { useWishlist } from "../../context/wishlist-context";
 import { useUser } from "../../context/user-context";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const Navbar = () => {
+  let navigate = useNavigate();
+  const [text, setText] = useState("");
+
   const {
     state: { cartList },
   } = useCart();
   const { encodedToken } = useUser();
   const { wishlistList } = useWishlist();
+
+  const handleChange = (event) => {
+    let searchQuery = event.target.value;
+    if (searchQuery.length > 0) {
+      navigate({
+        pathname: "/shop",
+        search: `?search=${searchQuery}`,
+      });
+    } else {
+      navigate("/shop");
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -56,16 +73,30 @@ export const Navbar = () => {
           </li>
           <li className="nav-list-items profile mobile-cta">
             <div>
-              <Link to="/login">
+              <Link to="/profile">
                 <i className="fas fa-user nav-icon"></i>
               </Link>
             </div>
           </li>
         </ul>
         <div className="nav-search-container">
-          <input className="nav-search-text" type="text" />
+          <input
+            className="nav-search-text"
+            type="text"
+            onChange={handleChange}
+            // value={text}
+          />
           <button className="nav-search-button">
-            <i className="fas fa-search"></i>
+            {text?.length > 0 ? (
+              <i
+                className="fas fa-times"
+                onClick={() => {
+                  setText("");
+                }}
+              ></i>
+            ) : (
+              <i className="fas fa-search"></i>
+            )}
           </button>
         </div>
       </div>

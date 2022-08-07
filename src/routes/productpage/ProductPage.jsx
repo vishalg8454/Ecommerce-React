@@ -1,42 +1,98 @@
-import { useReducer, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./product-page.css";
-import { useProduct } from "../../context/product-context";
-import { filterReducer } from "../../reducer/filter-reducer";
+import { useProduct, useFilter } from "../../context";
+// import { useProduct } from "../../context/product-context";
+// import { useFilter } from "../../context/filter-context";
 import { Filter, ProductCard } from "../../components";
-import { filterProducts } from "../../utils/filter-products";
-import { includeProducts } from "../../utils/include-products";
-import { sortProducts } from "../../utils/sort-products";
+import {
+  getFilteredProductsByCategory,
+  getProductFilteredByStock,
+  sortProducts,
+  getFilteredProductsByRating,
+} from "../../utils";
+// import { getFilteredProductsByCategory } from "../../utils/filter-products";
+// import { getProductFilteredByStock } from "../../utils/include-products";
+// import { sortProducts } from "../../utils/sort-products";
+// import { getFilteredProductsByRating } from "../../utils/rating-filter";
+import noProduct from "../../assets/images/noProduct.png";
+import { useSearchParams } from "react-router-dom";
 
 const ProductPage = () => {
-  const { productList } = useProduct();
+  let [searchParams] = useSearchParams();
+  let searchQuery = searchParams.get("search");
+
+  let { productList } = useProduct();
+  const { state, dispatch } = useFilter();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     document.title = "BookStock | Shop";
   }, []);
 
-  const [state, dispatch] = useReducer(filterReducer, {
-    sortBy: "",
-    includeOutOfStock: false,
-    fiction: false,
-    scifi: false,
-    novel: false,
-    selfhelp: false,
-    biography: false,
-    comic: false,
-  });
+  if (searchQuery && searchQuery.length > 0) {
+    productList = productList.filter(
+      (item) =>
+        item.title.toLowerCase().search(searchQuery.toLowerCase()) !== -1
+    );
+  }
 
-  const includedProducts = includeProducts(productList, state);
+  const includedProductsByStock = getProductFilteredByStock(productList, state);
 
-  const filteredProducts = filterProducts(includedProducts, state);
+  const filteredProductsByCategory = getFilteredProductsByCategory(
+    includedProductsByStock,
+    state
+  );
 
-  const sortedProducts = sortProducts(filteredProducts, state);
+  const filteredProductsByRating = getFilteredProductsByRating(
+    filteredProductsByCategory,
+    state
+  );
+
+  const sortedProducts = sortProducts(filteredProductsByRating, state);
 
   const finalProducts = sortedProducts;
 
   return (
     <div className="product-page">
-      <Filter className="filter" state={state} dispatch={dispatch} />
+      <div className="filter mobile">
+        {open && (
+          <div className="close-btn-flex">
+            <button className="close-btn" onClick={() => setOpen(!open)}>
+              <i className="fas fa-times"></i>
+            </button>
+            <button
+              className="btn-underline"
+              onClick={() => dispatch({ type: "RESET" })}
+            >
+              Clear
+            </button>
+          </div>
+        )}
+        {!open && (
+          <div className="close-btn-flex">
+            <button className="close-btn" onClick={() => setOpen(!open)}>
+              <i className="fas fa-filter"></i>
+            </button>
+          </div>
+        )}
+        {open && <Filter state={state} dispatch={dispatch} />}
+      </div>
+      <div className="filter web">
+        <button
+          className="btn-underline"
+          onClick={() => dispatch({ type: "RESET" })}
+        >
+          Clear
+        </button>
+        <Filter state={state} dispatch={dispatch} />
+      </div>
       <main className="main">
+        {finalProducts.length === 0 && (
+          <div className="no-product">
+            <img className="no-product-img" src={noProduct} />
+            No products found
+          </div>
+        )}
         {finalProducts.map((product) => {
           return (
             <ProductCard
@@ -46,6 +102,8 @@ const ProductPage = () => {
               image={product.image}
               includeStock={product.includeStock}
               _id={product._id}
+              originalPrice={product.originalPrice}
+              rating={product.rating}
             />
           );
         })}

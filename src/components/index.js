@@ -8,3 +8,5 @@ export {ProductCard} from "./product-card/ProductCard";
 export {Toast} from "./toast/Toast";
 export {CartCard} from "./cart-card/CartCard";
 export {PriceDetail} from "./price-detail/PriceDetail"
+export {Address} from "./address/Address";
+export {Orders} from "./orders/Orders";
