@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import "./profilepage.css";
 // import { useUser } from "../../context/user-context";
 // import { useCart } from "../../context/cart-context";
-import { useUser, useCart } from "../../context";
+import { useUser, useCart,useWishlist } from "../../context";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 export const ProfilePage = () => {
   const { dispatch } = useCart();
+  const {resetFavorites} = useWishlist();
   const [email, setEmail] = useState("testuser@example.com");
   const [password, setPassword] = useState("strongPass");
 
@@ -63,6 +64,7 @@ export const ProfilePage = () => {
           onClick={() => {
             logout();
             dispatch({ type: "RESET" });
+            resetFavorites();
           }}
         >
           Logout
