@@ -16,7 +16,7 @@ The app is responsive for both mobile (except `/shop`) and desktop view.
 - Products can be sorted on basis of `price`
 - products can be filtered on basis of `category` and `include out of stock`.
 
-### Video Demo
+### Here's The Video Demo
 
 
 
